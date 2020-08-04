@@ -4,10 +4,18 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
+            <div class='row'>
+                @php
+                    $thongbao = session('thongbao');
+                @endphp
+                @if($thongbao)
+                    <x-alert type='success' :message='$thongbao' />
+                @endif
+            </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Category
-                        <small>List</small>
+                    <h1 class="page-header">Slide
+                        <small>Danh sách</small>
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -15,30 +23,28 @@
                     <thead>
                         <tr align="center">
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Category Parent</th>
-                            <th>Status</th>
-                            <th>Delete</th>
-                            <th>Edit</th>
+                            <th>Tên</th>
+                            <th>Hình</th>
+                            <th>Nội dung</th>
+                            <th>Liên kết</th>
+                            <th>Xóa</th>
+                            <th>Sửa</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($slide as $sl)
                         <tr class="odd gradeX" align="center">
-                            <td>1</td>
-                            <td>Tin Tức</td>
-                            <td>None</td>
-                            <td>Hiện</td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
+                            <td>{{ $sl->id }}</td>
+                            <td>{{ $sl->Ten }}</td>
+                            <td>
+                                <img width="200px" src="upload/slide/{{ $sl->Hinh }}" alt="">
+                            </td>
+                            <td>{{ $sl->NoiDung }}</td>
+                            <td> <a href='{{ $sl->link }}'>{{ $sl->link }}</a></td>
+                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/slide/xoa/{{ $sl->id }}"> Xóa</a></td>
+                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/slide/sua/{{ $sl->id }}">Sửa</a></td>
                         </tr>
-                        <tr class="even gradeC" align="center">
-                            <td>2</td>
-                            <td>Bóng Đá</td>
-                            <td>Thể Thao</td>
-                            <td>Ẩn</td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

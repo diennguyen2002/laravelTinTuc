@@ -4,6 +4,21 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
+            <div class='row'>
+                <div class="col-lg-12">
+                    @if(count($errors)>0)
+                        @foreach($errors->all() as $err)
+                            <x-alert type='danger' :message='$err' />
+                        @endforeach
+                    @endif
+                    @php
+                        $thongbao = session('thongbao');
+                    @endphp
+                    @if($thongbao)
+                        <x-alert type='success' :message='$thongbao' />       
+                    @endif
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Thể loại
@@ -25,21 +40,7 @@
                     <form>
                 </div>
             </div>
-            <div class='row'>
-                <div class="col-lg-12">
-                    @if(count($errors)>0)
-                        @foreach($errors->all() as $err)
-                            <x-alert type='danger' :message='$err' />
-                        @endforeach
-                    @endif
-                    @php
-                        $thongbao = session('thongbao');
-                    @endphp
-                    @if($thongbao)
-                        <x-alert type='success' :message='$thongbao' />       
-                    @endif
-                </div>
-            </div>
+            
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->

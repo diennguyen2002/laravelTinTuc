@@ -6,7 +6,7 @@
 //         "app/function/function.php"
 // ]
 
-// Chạy cmd : composer  dumpautoload
+// Chạy cmd : composer  dump-autoload
 
 function changeTitle($str,$strSymbol='-',$case=MB_CASE_LOWER){// MB_CASE_UPPER / MB_CASE_TITLE / MB_CASE_LOWER
 	$str=trim($str);

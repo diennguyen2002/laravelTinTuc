@@ -4,55 +4,72 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
+            <div class='row'>
+                <div class="col-lg-12">
+                    @if(count($errors)>0)
+                        @foreach($errors->all() as $err)
+                            <x-alert type='danger' :message='$err' />
+                        @endforeach
+                    @endif
+                    @php
+                        $thongbao = session('thongbao');
+                        $loi = session('loi');
+                    @endphp
+                    @if($thongbao)
+                        <x-alert type='success' :message='$thongbao' />       
+                    @endif
+                    @if($loi)
+                        <x-alert type='danger' :message='$loi' />       
+                    @endif
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Category
-                        <small>Add</small>
+                    <h1 class="page-header">Slide
+                        <small>Thêm</small>
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-7" style="padding-bottom:120px">
-                    <form action="" method="POST">
+                    <form action="admin/slide/them" method="POST" enctype='multipart/form-data'>
+                        @csrf
                         <div class="form-group">
-                            <label>Category Parent</label>
-                            <select class="form-control">
-                                <option value="0">Please Choose Category</option>
-                                <option value="">Tin Tức</option>
-                            </select>
+                            <label>Tên</label>
+                            <input class="form-control" name="Ten" placeholder="Tên" />
                         </div>
                         <div class="form-group">
-                            <label>Category Name</label>
-                            <input class="form-control" name="txtCateName" placeholder="Please Enter Category Name" />
+                            <label>Nội dung</label>
+                            <textarea id="demo" class="form-control ckeditor" name="NoiDung" placeholder="Nội dung" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Category Order</label>
-                            <input class="form-control" name="txtOrder" placeholder="Please Enter Category Order" />
+                            <label>Liên kết</label>
+                            <input class="form-control" name="link" placeholder="Liên kết" />
                         </div>
                         <div class="form-group">
-                            <label>Category Keywords</label>
-                            <input class="form-control" name="txtOrder" placeholder="Please Enter Category Keywords" />
+                            <label>Hình</label>
+                            <input type="file" name='Hinh' class="form-control" />
                         </div>
-                        <div class="form-group">
-                            <label>Category Description</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Category Status</label>
-                            <label class="radio-inline">
-                                <input name="rdoStatus" value="1" checked="" type="radio">Visible
-                            </label>
-                            <label class="radio-inline">
-                                <input name="rdoStatus" value="2" type="radio">Invisible
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-default">Category Add</button>
-                        <button type="reset" class="btn btn-default">Reset</button>
+                        <button type="submit" class="btn btn-default">Thêm</button>
+                        <button type="reset" class="btn btn-default">Làm mới</button>
                     <form>
                 </div>
             </div>
+            
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $('#TheLoai').change(function(){
+                $.get('admin/ajax/loaitin/'+$(this).val(), function(data){
+                    $('#LoaiTin').html(data);
+                })
+            })
+        })
+    </script>
 @endsection

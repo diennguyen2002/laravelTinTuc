@@ -4,6 +4,25 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
+            <div class='row'>
+                <div class="col-lg-12">
+                    @if(count($errors)>0)
+                        @foreach($errors->all() as $err)
+                            <x-alert type='danger' :message='$err' />
+                        @endforeach
+                    @endif
+                    @php
+                        $thongbao = session('thongbao');
+                        $loi = session('loi');
+                    @endphp
+                    @if($thongbao)
+                        <x-alert type='success' :message='$thongbao' />       
+                    @endif
+                    @if($loi)
+                        <x-alert type='danger' :message='$loi' />       
+                    @endif
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Tin tức
@@ -31,20 +50,20 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Tiêu đề/label>
+                            <label>Tiêu đề</label>
                             <input class="form-control" name="TieuDe" placeholder="Tiêu đề" />
                         </div>
                         <div class="form-group">
                             <label>Tóm tắt</label>
-                            <input class="form-control" name="TomTat" placeholder="Tóm tắt" />
+                            <textarea id="demo" class="form-control ckeditor" name="TomTat" placeholder="Tóm tắt" rows="3"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Nội dung</label>
-                            <input class="form-control" name="NoiDung" placeholder="Nội dung" />
+                            <textarea id="demo" class="form-control ckeditor" name="NoiDung" placeholder="Nội dung"  rows="3"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Hình</label>
-                            <input type="file" name='file' />
+                            <input type="file" name='Hinh' class="form-control" />
                         </div>
                         <div class="form-group">
                             <label>Nổi bật</label>
@@ -60,6 +79,7 @@
                     <form>
                 </div>
             </div>
+            
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
