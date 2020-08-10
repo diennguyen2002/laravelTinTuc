@@ -4,49 +4,62 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
+            <div class='row'>
+                <div class="col-lg-12">
+                    @if(count($errors)>0)
+                        @foreach($errors->all() as $err)
+                            <x-alert type='danger' :message='$err' />
+                        @endforeach
+                    @endif
+                    @php
+                        $thongbao = session('thongbao');
+                        $loi = session('loi');
+                    @endphp
+                    @if($thongbao)
+                        <x-alert type='success' :message='$thongbao' />       
+                    @endif
+                    @if($loi)
+                        <x-alert type='danger' :message='$loi' />       
+                    @endif
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Category
-                        <small>Add</small>
+                    <h1 class="page-header">User
+                        <small>Thêm</small>
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-7" style="padding-bottom:120px">
-                    <form action="" method="POST">
+                    <form action="admin/user/them" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <label>Category Parent</label>
-                            <select class="form-control">
-                                <option value="0">Please Choose Category</option>
-                                <option value="">Tin Tức</option>
-                            </select>
+                            <label>Tên</label>
+                            <input class="form-control" name="name" placeholder="Nhập tên" />
                         </div>
                         <div class="form-group">
-                            <label>Category Name</label>
-                            <input class="form-control" name="txtCateName" placeholder="Please Enter Category Name" />
+                            <label>Email</label>
+                            <input class="form-control" name="email" placeholder="Nhập email" />
                         </div>
                         <div class="form-group">
-                            <label>Category Order</label>
-                            <input class="form-control" name="txtOrder" placeholder="Please Enter Category Order" />
+                            <label>Mật khẩu</label>
+                            <input class="form-control" type="password" name="password" placeholder="Nhập mật khẩu" />
                         </div>
                         <div class="form-group">
-                            <label>Category Keywords</label>
-                            <input class="form-control" name="txtOrder" placeholder="Please Enter Category Keywords" />
+                            <label>Nhập lại mật khẩu</label>
+                            <input class="form-control" type="password" name="passwordAgain" placeholder="Nhập lại mật khẩu" />
                         </div>
                         <div class="form-group">
-                            <label>Category Description</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Category Status</label>
+                            <label>Vai trò</label>
                             <label class="radio-inline">
-                                <input name="rdoStatus" value="1" checked="" type="radio">Visible
+                                <input name="role" value="0" checked type="radio">Thường
                             </label>
                             <label class="radio-inline">
-                                <input name="rdoStatus" value="2" type="radio">Invisible
+                                <input name="role" value="1" type="radio">Admin
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-default">Category Add</button>
-                        <button type="reset" class="btn btn-default">Reset</button>
+                        <button type="submit" class="btn btn-default">Thêm</button>
+                        <button type="reset" class="btn btn-default">Làm mới</button>
                     <form>
                 </div>
             </div>

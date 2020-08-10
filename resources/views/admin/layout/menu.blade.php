@@ -64,13 +64,13 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href="admin/nguoidung/danhsach"><i class="fa fa-users fa-fw"></i> Người dùng<span class="fa arrow"></span></a>
+                <a href="admin/user/danhsach"><i class="fa fa-users fa-fw"></i> Người dùng<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="admin/nguoidung/danhsach">Danh sách</a>
+                        <a href="admin/user/danhsach">Danh sách</a>
                     </li>
                     <li>
-                        <a href="admin/nguoidung/them">Thêm</a>
+                        <a href="admin/user/them">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

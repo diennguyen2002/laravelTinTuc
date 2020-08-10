@@ -51,12 +51,12 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('danhsach', 'TheLoaiController@getDanhsach');
-        Route::get('them', 'TheLoaiController@getThem');
-        Route::post('them', 'TheLoaiController@postThem')->name('postThem');
-        Route::get('sua/{id}', 'TheLoaiController@getSua');
-        Route::post('sua/{id}', 'TheLoaiController@postSua');
-        Route::get('xoa/{id}', 'TheLoaiController@getXoa');
+        Route::get('danhsach', 'UserController@getDanhsach');
+        Route::get('them', 'UserController@getThem');
+        Route::post('them', 'UserController@postThem')->name('postThem');
+        Route::get('sua/{id}', 'UserController@getSua');
+        Route::post('sua/{id}', 'UserController@postSua');
+        Route::get('xoa/{id}', 'UserController@getXoa');
     });
 
     Route::group(['prefix' => 'slide'], function () {
