@@ -93,8 +93,8 @@ class TinTucController extends Controller
         if($request->hasFile('Hinh')) {
             $file = $request->file('Hinh');
             $ext = $file->getClientOriginalExtension();
-            if(!in_array($ext, array('jpg', 'png', 'jpeg'))){
-                return redirect('admin/tintuc/them')->with('loi','Bạn chỉ được nhập file có đuôi jpg|png|jpeg');
+            if(!in_array(Str::lower($ext), array('jpg', 'png', 'jpeg'))){
+                return redirect('admin/tintuc/sua/'.$id)->with('loi','Bạn chỉ được nhập file có đuôi jpg|png|jpeg');
             }
             $name = $file->getClientOriginalName();
             $Hinh = Str::random(7) . "_" . $name;
@@ -108,12 +108,13 @@ class TinTucController extends Controller
         
         $tintuc->save();
        
-        return redirect('admin/tintuc/sua/'.$tintuc->id)->with('thongbao','Bạn đã sửa thành công');
+        return redirect('admin/tintuc/sua/'.$id)->with('thongbao','Bạn đã sửa thành công');
     }
 
     public function getXoa($id){
         $tintuc = TinTuc::find($id);
         $tintuc->delete();
+        unlink('upload/tintuc/'.$tintuc->Hinh);
         return redirect('admin/tintuc/danhsach')->with('thongbao','Bạn đã xóa thành công');
     }
 }

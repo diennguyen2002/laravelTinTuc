@@ -61,15 +61,3 @@
     </div>
     <!-- /#page-wrapper -->
 @endsection
-
-@section('script')
-    <script>
-        $(document).ready(function(){
-            $('#TheLoai').change(function(){
-                $.get('admin/ajax/loaitin/'+$(this).val(), function(data){
-                    $('#LoaiTin').html(data);
-                })
-            })
-        })
-    </script>
-@endsection

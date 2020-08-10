@@ -63,33 +63,55 @@ class SlideController extends Controller
     }
 
     public function getSua($id){
-        $theloai = TheLoai::all();
-        $loaitin = LoaiTin::find($id);
-        return view('admin.loaitin.sua', ['theloai'=>$theloai, 'loaitin'=>$loaitin]);
+        $slide = Slide::find($id);
+        return view('admin.slide.sua', compact('slide'));
     }
 
     public function postSua(Request $request, $id) {
         $this->validate($request, [
-            'Ten' => 'required|min:3|max:100|unique:TheLoai,Ten',
+            'Ten' => 'required|min:3|max:100|unique:slide,Ten',
+            'NoiDung' => 'required',
         ],[
             'Ten.required' => 'Tên chưa được nhập',
             'Ten.min' => 'Tên lớn hơn 3 và nhỏ hơn 100 ký tự',
             'Ten.max' => 'Tên lớn hơn 3 và nhỏ hơn 100 ký tự',
             'Ten.unique' => 'Tên đã tồn tại',
+            'NoiDung.required' => 'Nội dung chưa được nhập'
         ]);
 
-        $loaitin = LoaiTin::find($id);
-        $loaitin->idTheLoai = $request->TheLoai;
-        $loaitin->Ten = $request->Ten;
-        $loaitin->TenKhongDau = changeTitle($request->Ten);
-        $loaitin->save();
+        $slide = Slide::find($id);
+        $slide->Ten = $request->Ten;
+        $slide->NoiDung = $request->NoiDung;
+        
+        if($request->has('link')){
+            $slide->link = $request->link;
+        }
+
+        if($request->hasFile('Hinh')) {
+            $file = $request->file('Hinh');
+            $ext = $file->getClientOriginalExtension();
+            if(!in_array(Str::lower($ext), array('jpg', 'png', 'jpeg'))){
+                return redirect('admin/slide/sua/'.$id)->with('loi','Bạn chỉ được nhập file có đuôi jpg|png|jpeg');
+            }
+            $name = $file->getClientOriginalName();
+            $Hinh = Str::random(7) . "_" . $name;
+            while(file_exists('upload/slide/'.$Hinh)){
+                $Hinh = Str::random(7) . "_" . $name;
+            }
+            $file->move('upload/slide/', $Hinh);
+            unlink('upload/slide/'.$slide->Hinh);
+            $slide->Hinh = $Hinh;
+        }
+
+        $slide->save();
        
-        return redirect('admin/loaitin/sua/'.$id)->with('thongbao','Bạn đã sửa thành công');
+        return redirect('admin/slide/sua/'.$id)->with('thongbao','Bạn đã sửa thành công');
     }
 
     public function getXoa($id){
-        $loaitin = LoaiTin::find($id);
-        $loaitin->delete();
-        return redirect('admin/loaitin/danhsach')->with('thongbao','Bạn đã xóa thành công');
+        $slide = Slide::find($id);
+        $slide->delete();
+        unlink('upload/slide/'.$slide->Hinh);
+        return redirect('admin/slide/danhsach')->with('thongbao','Bạn đã xóa thành công');
     }
 }
