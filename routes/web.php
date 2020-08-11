@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//////////////////// Back-end ////////////////////////
 
-Route::group(['prefix' => 'admin'], function () {
+Route::get('admin/dangnhap', 'UserController@getDangNhap');
+Route::post('admin/dangnhap', 'UserController@postDangNhap');
+Route::get('admin/dangxuat', 'UserController@getDangxuat');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'adminAuth'], function () {
     Route::group(['prefix' => 'theloai'], function () {
         Route::get('danhsach', 'TheLoaiController@getDanhsach');
         Route::get('them', 'TheLoaiController@getThem');
@@ -71,5 +73,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'ajax'], function() {
         Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
     });
-    
+});
+
+//////////////////// Front-end ////////////////////////
+
+Route::get('trangchu', function () {
+    return view('pages.trangchu');
 });
