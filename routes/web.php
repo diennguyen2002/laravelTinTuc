@@ -77,6 +77,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminAuth'], function () {
 
 //////////////////// Front-end ////////////////////////
 
-Route::get('trangchu', function () {
-    return view('pages.trangchu');
-});
+Route::get('trangchu', 'PageController@trangchu');
