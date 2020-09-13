@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     //
     public function getDanhsach(){
-        $user = User::all();
+        $user = User::paginate(5);
         return view('admin.user.danhsach', compact('user'));
     }
 
